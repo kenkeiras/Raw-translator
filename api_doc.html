@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html><head>
+<meta charset="utf-8" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<title>Raw translator: API</title>
+</head>
+<body>
+<div id="banner">Raw translator API</div>
+<br /><br />
+To use the api, query <span class="fname">api.php</span> including at least the parameter <span class="api_field">op</span> (&nbsp;operation&nbsp;) vía GET (&nbsp;when&nbsp;possible&nbsp;) or POST, available options are:
+<ul>
+<li><span class="api_value">get_translations</span>: returns the possible origin -> result combinations.</li>
+<li><span class="api_value">add_to_database</span>: adds a translation file to database ( currently PO files suported, working on MO suport ).</li>
+<li><span class="api_value">translate</span>: translates a PO file.</li>
+<li><span class="api_value">translate_string</span>: translates a single string.</li>
+</ul>
+Translation is always needed (&nbsp;except&nbsp;when&nbsp;calling&nbsp;<span class="api_value">get_translations</span>&nbsp;), passed as the <span class="api_value">trans</span> argument.<br /><br />
+When a file is sent, it must be throught a POST query, with the file as <span class="api_value">file</span>, elsewhere both GET or POST can be used.<br /><br />
+When translating a single string, it must be sent URL encoded as the <span class="api_value">str</span> parameter.<br /><br />
+When a file is going to be translated, if a parameter <span class="api_field">add</span> is sent (&nbsp;with&nbsp;any&nbsp;content&nbsp;), it will add the translations to the database.
+<div id="footer"><a href="https://github.com/kenkeiras/Raw-translator"><img src="img/github-badge.png" alt="Source code repository"/></a> | <a href="tc.html">Service terms and conditions</a> | <a href="api_doc.html">API documentation</a></div>
+</body>
+</html>
