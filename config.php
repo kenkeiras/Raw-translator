@@ -6,7 +6,7 @@ $dbPass = "rtrans";
 $dbName = "rtrans";
 $dbTablePrefix = "rtrans_";
 
-$limitLen = 1000; // Max. string length
+$limitLen = 256; // Max. string length
 
 $translations = Array(
     'en2es' => 'English to Spanish',
