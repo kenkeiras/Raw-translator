@@ -141,23 +141,11 @@
             $rl = strlen($result);
 
             if(($ol > 0) and ($rl > 0) and ($ol < $limitLen) and( $rl < $limitLen)){
-                $selectQuery = "select count(1) from ".$dbTablePrefix.$table." where ".
-                               "origin='".mysql_real_escape_string($orig)."' and ".
-                               "result='".mysql_real_escape_string($result)."';";
+                $insertQuery = "INSERT IGNORE into ".$dbTablePrefix.$table." values( '".
+                        mysql_real_escape_string($orig)."', '".
+                        mysql_real_escape_string($result)."');";
 
-                $r = mysql_query($selectQuery, $dbConn) or 
-                     die( "Error: ". mysql_error() );
-
-                $v = mysql_fetch_array($r);
-                
-                if($v[0] == 0 ){
-
-                    $insertQuery = "insert into ".$dbTablePrefix.$table." values( '".
-                            mysql_real_escape_string($orig)."', '".
-                            mysql_real_escape_string($result)."');";
-
-                    mysql_query($insertQuery, $dbConn) or die( "Error: ". mysql_error() );
-                }
+                mysql_query($insertQuery, $dbConn) or die( "Error: ". mysql_error() );
             }
         }
         $po->resetPairIt();
@@ -165,7 +153,7 @@
 
     /* Requests the translation for the $orig string, from $tableName */
     function reqString($tableName, $orig, $dbConn){
-        $selectQuery = "select result from $tableName where ".
+        $selectQuery = "SELECT result from $tableName where ".
                         "origin='".mysql_real_escape_string($orig)."';";
 
         $r = mysql_query($selectQuery, $dbConn) or

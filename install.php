@@ -18,13 +18,13 @@
     foreach( $tables as $table ){
         echo "Checking $table ";
         $t = mysql_real_escape_string( $dbTablePrefix.$table );
-        $q = "show tables like '$t';";
+        $q = "SHOW tables like '$t';";
         $r = mysql_query( $q ) or die( "[<font color='red'>Error: ". mysql_error()."</font>]" );
         if (mysql_fetch_array($r)){
             echo "[<font color='red'>Table exists</font>]";
         }
         else{
-            $q = "create table $t (origin varchar( $limitLen ), result varchar( $limitLen ), PRIMARY KEY (origin, result));";
+            $q = "CREATE table $t (origin varchar( $limitLen ), result varchar( $limitLen ), PRIMARY KEY (origin, result));";
             mysql_query($q) or die( "[<font color='red'>Error: ". mysql_error()."</font]>" );
             echo " [<font color='green'>Done</font>]";
         }
