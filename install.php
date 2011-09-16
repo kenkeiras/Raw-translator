@@ -24,7 +24,7 @@
             echo "[<font color='red'>Table exists</font>]";
         }
         else{
-            $q = "create table $t (origin varchar( $limitLen ), result varchar( $limitLen ));";
+            $q = "create table $t (origin varchar( $limitLen ), result varchar( $limitLen ), PRIMARY KEY (origin, result));";
             mysql_query($q) or die( "[<font color='red'>Error: ". mysql_error()."</font]>" );
             echo " [<font color='green'>Done</font>]";
         }
