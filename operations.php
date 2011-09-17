@@ -129,6 +129,16 @@
         return $r;
     }
 
+    /* Checks if a string contains only printable characters */
+    function useful_string($s, $symbols){
+        $a = preg_split('/[[:cntrl:]|�]/', $s);
+        if (count($a) != 1){
+            return false;
+        }
+
+        $clean = preg_replace($symbols, '', $s);
+        return strlen($clean) > 0;
+    }
 
     /* Add origin - result pairs to database */
     function addPairs( $po, $dbConn, $table ){
@@ -136,16 +146,18 @@
         while( $p = ($po->getPair()) ){
             $orig   = trim(implode('', $p[0][1]));
             $result = trim(implode('', $p[1][1]));
+            if (useful_string($orig, $symbols) && useful_string($result, $symbols)){
 
-            $ol = strlen($orig); 
-            $rl = strlen($result);
+                $ol = strlen($orig); 
+                $rl = strlen($result);
 
-            if(($ol > 0) and ($rl > 0) and ($ol < $limitLen) and( $rl < $limitLen)){
-                $insertQuery = "INSERT IGNORE into ".$dbTablePrefix.$table." values( '".
-                        mysql_real_escape_string($orig)."', '".
-                        mysql_real_escape_string($result)."');";
+                if(($ol > 0) and ($rl > 0) and ($ol < $limitLen) and( $rl < $limitLen)){
+                    $insertQuery = "INSERT IGNORE into ".$dbTablePrefix.$table." values( '".
+                            mysql_real_escape_string($orig)."', '".
+                            mysql_real_escape_string($result)."');";
 
-                mysql_query($insertQuery, $dbConn) or die( "Error: ". mysql_error() );
+                    mysql_query($insertQuery, $dbConn) or die( "Error: ". mysql_error() );
+                }
             }
         }
         $po->resetPairIt();
@@ -178,6 +190,7 @@
                 $v = reqString($dbTablePrefix.$table, $orig, $dbConn);
 
                 if($v){
+                    echo "$orig -> $result\n";
                     $po->setResult($v);
                 }
             }

@@ -1,0 +1,19 @@
+Instalation:
+
+* In config.php, and set $dbHost, $dbUser, $dbPass, $dbName, and optionally $dbTablePrefix .
+* Also in config.php, edit $translations.
+* Navigate to install.php
+* Done :)
+
+API:
+
+To use the api, query *api.php* including at least the parameter *op* ( operation ) vía GET ( when possible ) or POST, available options are:
+    *get_translations*: returns the possible origin -> result combinations.
+    *add_to_database*: adds a translation file to database ( currently PO files suported, working on MO suport ).
+    *translate*: translates a PO file.
+    *translate_string*: translates a single string.
+
+Translation is always needed  except when calling *get_translations* ), passed as the *trans* argument.
+When a file is sent, it must be throught a POST query, with the file as *file*, elsewhere both GET or POST can be used.
+When translating a single string, it must be sent URL encoded as the *str* parameter.
+When a file is going to be translated, if a parameter *add* is sent ( with any content ), it will add the translations to the database.
